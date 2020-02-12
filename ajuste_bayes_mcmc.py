@@ -1,6 +1,5 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
-from scipy import integrate
 
 data = np.genfromtxt('notas_andes.dat')
 
@@ -27,8 +26,6 @@ def MC(observados,pasos):
 	L_parado = log_likelihood(observados,betas)
 
 	betas_camino = betas
-
-	print(betas_camino)
 
 	for i in range(0,pasos):
 		
@@ -59,8 +56,6 @@ def MC(observados,pasos):
 	return betas_camino
 
 betas = MC(datas,20000)
-
-print(betas)
 
 plt.figure(figsize = (9,10))
 for i in range(0,5):
