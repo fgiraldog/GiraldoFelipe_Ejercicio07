@@ -20,24 +20,17 @@ def log_likelihood(data,b):
 	return (-chi_cuad/2.)
 
 def MC(observados,pasos):
-
 	betas = [0.1,0.1,0.1,0.1,0.1]
-
 	L_parado = log_likelihood(observados,betas)
-
 	betas_camino = betas
 
 	for i in range(0,pasos):
-		
 		betas_ale = np.random.normal(betas, 0.01, size = 5)
-
 		L_ale = log_likelihood(observados,betas_ale)
-
 		alpha = np.exp(L_ale-L_parado)
 
 		if alpha >= 1:
 			betas_camino = np.vstack([betas_camino,betas_ale])
-
 			betas = betas_ale
 			L_parado = L_ale
 
@@ -46,7 +39,6 @@ def MC(observados,pasos):
 
 			if alpha >= beta:
 				betas_camino = np.vstack([betas_camino,betas_ale])
-
 				betas = betas_ale
 				L_parado = L_ale
 
@@ -62,7 +54,7 @@ for i in range(0,5):
 	plt.subplot(3,2,i+1)
 	plt.hist(betas[10000:,i], bins = 20, density = True)
 	plt.xlabel(r'$\beta_{}$'.format(i))
-	plt.title(r'$\beta_{} = {:.2f} \pm {:.2f}$'.format(i+1,np.mean(betas[10000:,i]),
+	plt.title(r'$\beta_{} = {:.2f} \pm {:.2f}$'.format(i,np.mean(betas[10000:,i]),
 		np.std(betas[10000:,i])))
 
 plt.subplots_adjust(hspace=0.6)
